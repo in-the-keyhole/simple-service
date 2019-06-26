@@ -3,6 +3,8 @@ kind: ImageStream
 metadata:
   generation: 1
   name: simple-service
+  labels:
+    app: simple-service
 spec:
   lookupPolicy:
     local: false
