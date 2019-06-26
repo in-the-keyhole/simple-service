@@ -14,11 +14,11 @@ spec:
   runPolicy: Serial
   source:
     dockerfile: |-
-      FROM maven:3.6-jdk-11-slim as builder
+      FROM adoptopenjdk/openjdk11:alpine-slim as builder
 
       WORKDIR /app
       COPY . .
-      RUN mvn clean package -DskipTests -P openshift
+      RUN ./mvnw clean package -DskipTests -P openshift
 
       FROM adoptopenjdk/openjdk11:alpine-jre
       RUN apk add --no-cache curl
