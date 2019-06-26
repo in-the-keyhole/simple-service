@@ -43,7 +43,6 @@ spec:
   test: false
   triggers:
   - imageChangeParams:
-      automatic: true
       containerNames:
       - simple-service
       from:
@@ -51,4 +50,3 @@ spec:
         name: simple-service:latest
         namespace: myproject
     type: ImageChange
-  - type: ConfigChange

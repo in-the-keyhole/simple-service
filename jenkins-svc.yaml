@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: jenkins
+  namespace: myproject
+spec:
+  type: ExternalName
+  externalName: jenkins.ci-cd.svc
+  ports:
+  - port: 80

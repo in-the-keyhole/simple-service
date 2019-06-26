@@ -1,0 +1,56 @@
+# BUILD CONFIG
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  name: simple-service-pipeline
+  annotations:
+    pipeline.alpha.openshift.io/uses: '[{"name": "simple-service", "namespace": "myproject", "kind": "DeploymentConfig"}]'
+  labels:
+    app: simple-service
+    namespace: myproject
+spec:
+  runPolicy: Serial
+  source:
+    git:
+      ref: master
+      uri: >-
+        https://github.com/in-the-keyhole/simple-service.git
+    sourceSecret:
+      name: git-credentials
+    type: Git
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfile: >
+        pipeline {
+          agent { node { label 'maven' } }
+          stages {
+            stage('Fetch Source') {
+              steps {
+                git url: 'https://github.com/in-the-keyhole/simple-service.git', branch: 'master'
+              }
+            }
+            
+            stage('Unit Testing') {
+              steps {
+                sh("./mvnw clean test")
+              }
+            }
+            
+            stage('Build Image') {
+              steps {
+                openshiftBuild(namespace: 'myproject', bldCfg: 'simple-service', showBuildLogs: 'true')
+              }
+            }
+            
+            stage('Deploy') {
+              steps {
+                openshiftDeploy(namespace: 'myproject', depCfg: 'simple-service')
+              }
+            }
+          }
+        }
+    type: JenkinsPipeline
+  triggers:
+    - generic:
+        secret: simple-service
+      type: Generic
