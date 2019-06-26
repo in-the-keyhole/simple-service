@@ -51,6 +51,7 @@ spec:
         }
     type: JenkinsPipeline
   triggers:
-    - generic:
-        secret: simple-service
-      type: Generic
+    - github:
+        secretReference:
+          name: github
+      type: GitHub
