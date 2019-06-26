@@ -13,6 +13,9 @@ spec:
   resources: {}
   runPolicy: Serial
   source:
+    git:
+      ref: master
+      uri: https://github.com/in-the-keyhole/simple-service.git
     dockerfile: |-
       FROM adoptopenjdk/openjdk11:alpine-slim as builder
 
