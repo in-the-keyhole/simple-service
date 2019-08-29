@@ -5,6 +5,10 @@ server:
 #   server:
 #     port: 8081
 
+spring:
+  jmx:
+    enabled: false
+
 logging:
   level:
     ROOT: INFO
