@@ -1,4 +1,3 @@
-#FROM maven:3.6-jdk-11-slim as builder
 FROM adoptopenjdk/openjdk11:alpine-slim as builder
 
 WORKDIR /app
