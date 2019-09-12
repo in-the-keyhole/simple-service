@@ -3,7 +3,7 @@ package com.keyholesoftware.devops.simpleservice.api;
 public class HelloResponse {
 
     public HelloResponse(String name) {
-        this.greeting = "Hello " + name;
+        this.greeting = "Hello " + name + " from Spring Boot";
     }
 
     private String greeting;
