@@ -1,5 +1,6 @@
 apiVersion: v1
 items:
+# IMAGE STREAM
   - apiVersion: image.openshift.io/v1
     kind: ImageStream
     metadata:
@@ -10,6 +11,7 @@ items:
     spec:
       lookupPolicy:
         local: false
+# BUILD CONFIG 
   - apiVersion: build.openshift.io/v1
     kind: BuildConfig
     metadata:
@@ -41,7 +43,7 @@ items:
           COPY --from=builder /app/target/application.jar /
           ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/application.jar"]
         git:
-          ref: master
+          ref: istio
           uri: https://github.com/in-the-keyhole/simple-springboot-service.git
         type: Git
       strategy:
@@ -50,6 +52,7 @@ items:
         type: Docker
       successfulBuildsHistoryLimit: 5
       triggers: []
+# PIPELINE
   - apiVersion: v1
     kind: BuildConfig
     metadata:
@@ -131,6 +134,7 @@ items:
             secretReference:
               name: github
           type: GitHub
+# DEPLOYMENT CONFIG
   - apiVersion: apps.openshift.io/v1
     kind: DeploymentConfig
     metadata:
@@ -154,6 +158,8 @@ items:
         type: Rolling
       template:
         metadata:
+          annotations:
+            sidecar.istio.io/inject: "true"
           labels:
             app: simple-springboot-service
             deploymentconfig: simple-springboot-service
@@ -162,6 +168,8 @@ items:
             - env:
                 - name: JAVA_OPTS
                   value: -Xss256K -Xms16M -Xmx32M
+                - name: dateService_url
+                  value: date-service:8080
               image: simple-springboot-service:latest
               imagePullPolicy: Always
               name: simple-springboot-service
@@ -185,6 +193,7 @@ items:
               kind: ImageStreamTag
               name: simple-springboot-service:latest
           type: ImageChange
+# SERVICE
   - apiVersion: v1
     kind: Service
     metadata:
@@ -201,6 +210,7 @@ items:
         deploymentconfig: simple-springboot-service
       sessionAffinity: None
       type: ClusterIP
+# ROUTE
   - apiVersion: route.openshift.io/v1
     kind: Route
     metadata:

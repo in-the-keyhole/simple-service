@@ -9,6 +9,9 @@ spring:
   jmx:
     enabled: false
 
+dateService:
+  url: localhost:8081
+
 logging:
   level:
     ROOT: INFO
