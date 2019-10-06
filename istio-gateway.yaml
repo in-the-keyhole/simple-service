@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
-  name: simple-springboot-service-gateway
+  name: experimental-gateway
 spec:
   selector:
     istio: ingressgateway # use istio default controller
@@ -21,7 +21,7 @@ spec:
   hosts:
   - "*"
   gateways:
-  - simple-springboot-service-gateway
+  - experimental-gateway
   http:
   - match:
     - uri:
