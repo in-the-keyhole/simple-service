@@ -54,6 +54,11 @@
 			<version>${version.opentracing}</version>
 		</dependency>
 		<dependency>
+			<groupId>io.github.openfeign.opentracing</groupId>
+			<artifactId>feign-opentracing</artifactId>
+			<version>0.3.0</version>
+		</dependency>
+		<dependency>
 			<groupId>io.opentracing.contrib</groupId>
 			<artifactId>opentracing-spring-cloud-starter</artifactId>
 			<version>${version.opentracing.spring}</version>
