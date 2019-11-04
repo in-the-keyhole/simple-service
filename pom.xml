@@ -19,7 +19,7 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
 		<version.opentracing>0.32.0</version.opentracing>
-		<version.opentracing.spring>0.3.2</version.opentracing.spring>
+		<version.opentracing.spring>0.3.9</version.opentracing.spring>
 		<version.jaeger>0.35.2</version.jaeger>
 	</properties>
 
@@ -54,9 +54,9 @@
 			<version>${version.opentracing}</version>
 		</dependency>
 		<dependency>
-			<groupId>io.github.openfeign.opentracing</groupId>
-			<artifactId>feign-opentracing</artifactId>
-			<version>0.3.0</version>
+			<groupId>io.opentracing.contrib</groupId>
+			<artifactId>opentracing-spring-cloud-feign-starter</artifactId>
+			<version>${version.opentracing.spring}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.opentracing.contrib</groupId>
